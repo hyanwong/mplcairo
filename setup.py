@@ -149,13 +149,13 @@ class build_ext(build_ext):
                 "--atleast-version={}".format(MIN_CAIRO_VERSION), "cairo")
             ext.include_dirs += [cairo.get_include()]
             ext.extra_compile_args += (
-                # version-min=10.9 avoids deprecation warning wrt. libstdc++.
+                # version-min=10.14 avoids deprecation warning wrt. libstdc++ & an error wrt the visit function ("has been explicitly made unavailable")
                 ["-std=c++1z", "-fvisibility=hidden", "-flto",
-                 "-mmacosx-version-min=10.9"]
+                 "-mmacosx-version-min=10.14"]
                 + get_pkg_config("--cflags", "cairo"))
             ext.extra_link_args += (
                 # version-min needs to be repeated to avoid a warning.
-                ["-flto", "-mmacosx-version-min=10.9"])
+                ["-flto", "-mmacosx-version-min=10.14"])
 
         elif sys.platform == "win32":
             ext.include_dirs += (
